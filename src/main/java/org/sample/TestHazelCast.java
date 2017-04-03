@@ -20,39 +20,45 @@ import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.IMap;
 
 public class TestHazelCast {
-  
-  @Benchmark
-  @BenchmarkMode(Mode.AverageTime)
-  @OutputTimeUnit(TimeUnit.NANOSECONDS)
-  @Threads(10)
-  public void concurrentHashMap(BenchMarkState state){
-	  if(state.chmWrite.size() < 100000)
-		  state.chmWrite.put(UUID.randomUUID().toString(), UUID.randomUUID());
-  }
-  @Benchmark
-  @BenchmarkMode(Mode.AverageTime)
-  @OutputTimeUnit(TimeUnit.NANOSECONDS)
-  @Threads(10)
-  public void hazelcast(BenchMarkState state){
-	  if(state.mapWrite.size() < 100000)
-		  state.mapWrite.put(UUID.randomUUID().toString(), UUID.randomUUID());
-  }
-  @State(Scope.Benchmark)
-  public static class BenchMarkState {
-    @Setup(Level.Trial)
-    public void doSetup() {
-    	mapWrite = instance.getMap("write");
-    	mapRead = instance.getMap("read");
-    }
-    @TearDown
-    public void tearDown(){
-    	instance.shutdown();
-    }
 
-    private final HazelcastInstance instance = Hazelcast.newHazelcastInstance(new XmlConfigBuilder().build());
-    public IMap<String, Object> mapWrite;
-    public IMap<String, Object> mapRead;
-    public ConcurrentHashMap<String, Object> chmRead = new ConcurrentHashMap<>();
-    public ConcurrentHashMap<String, Object> chmWrite = new ConcurrentHashMap<>();
-  }
+	@Benchmark
+	@BenchmarkMode(Mode.AverageTime)
+	@OutputTimeUnit(TimeUnit.NANOSECONDS)
+	@Threads(10)
+	public void concurrentHashMap(BenchMarkState state){
+		while(true)
+			if(state.chmWrite.size() < 100000)
+				state.chmWrite.put(UUID.randomUUID().toString(), UUID.randomUUID());
+			else
+				break;
+	}
+	@Benchmark
+	@BenchmarkMode(Mode.AverageTime)
+	@OutputTimeUnit(TimeUnit.NANOSECONDS)
+	@Threads(10)
+	public void hazelcast(BenchMarkState state){
+		while(true)
+			if(state.mapWrite.size() < 100000)
+				state.mapWrite.put(UUID.randomUUID().toString(), UUID.randomUUID());
+			else
+				break;
+	}
+	@State(Scope.Benchmark)
+	public static class BenchMarkState {
+		@Setup(Level.Trial)
+		public void doSetup() {
+			mapWrite = instance.getMap("write");
+			mapRead = instance.getMap("read");
+		}
+		@TearDown
+		public void tearDown(){
+			instance.shutdown();
+		}
+
+		private final HazelcastInstance instance = Hazelcast.newHazelcastInstance(new XmlConfigBuilder().build());
+		public IMap<String, Object> mapWrite;
+		public IMap<String, Object> mapRead;
+		public ConcurrentHashMap<String, Object> chmRead = new ConcurrentHashMap<>();
+		public ConcurrentHashMap<String, Object> chmWrite = new ConcurrentHashMap<>();
+	}
 }
