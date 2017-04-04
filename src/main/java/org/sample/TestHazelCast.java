@@ -37,6 +37,9 @@ public class TestHazelCast {
 		while(temp.hasNext())
 			temp.next();
 	}
+//	Benchmark                    Mode  Cnt         Score        Error  Units
+//	TestHazelCast.hazelcastList  avgt  200  15148252.440 ± 434565.403  ns/op
+//	TestHazelCast.linkedList     avgt  200   1245878.630 ±  45909.236  ns/op
 	@State(Scope.Benchmark)
 	public static class BenchMarkState {
 		@Setup(Level.Trial)
