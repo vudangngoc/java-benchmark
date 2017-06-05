@@ -48,7 +48,10 @@ public class TestSetPerformance {
 		});
 
 	}
-
+//	Benchmark                              Mode  Cnt         Score        Error  Units
+//	TestSetPerformance.forCStyle           avgt  200  30932686.838 ± 324392.325  ns/op
+//	TestSetPerformance.forEach             avgt  200  28612117.566 ± 282661.493  ns/op
+//	TestSetPerformance.streamSingleThread  avgt  200  27928042.863 ± 269328.059  ns/op
 	@State(Scope.Benchmark)
 	public static class BenchMarkState {
 		@Setup(Level.Trial)

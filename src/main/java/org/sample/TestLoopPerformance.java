@@ -32,6 +32,7 @@ public class TestLoopPerformance {
 		int size = state.testData.size();
 		for(int j = 0; j < size; j ++){
 			state.testData.get(j);
+			// Do something
 		}
 	}
 
