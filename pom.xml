@@ -43,18 +43,6 @@
 			<artifactId>jmh-core</artifactId>
 			<version>${jmh.version}</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.modelmapper/modelmapper -->
-		<dependency>
-			<groupId>org.modelmapper</groupId>
-			<artifactId>modelmapper</artifactId>
-			<version>0.7.7</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/net.sf.dozer/dozer -->
-		<dependency>
-			<groupId>net.sf.dozer</groupId>
-			<artifactId>dozer</artifactId>
-			<version>5.5.1</version>
-		</dependency>
 
 		<dependency>
 			<groupId>org.openjdk.jmh</groupId>
@@ -62,16 +50,23 @@
 			<version>${jmh.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.lmax/disruptor -->
+		<dependency>
+			<groupId>com.lmax</groupId>
+			<artifactId>disruptor</artifactId>
+			<version>3.3.7</version>
+		</dependency>
+
 	</dependencies>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<!-- JMH version to use with this project. -->
-		<jmh.version>1.17.5</jmh.version>
+		<jmh.version>1.20</jmh.version>
 
 		<!-- Java source/target to use for compilation. -->
-		<javac.target>1.8</javac.target>
+		<javac.target>1.9</javac.target>
 
 		<!-- Name of the benchmark Uber-JAR to generate. -->
 		<uberjar.name>benchmarks</uberjar.name>
