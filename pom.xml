@@ -68,6 +68,19 @@
 			<artifactId>luaj-jse</artifactId>
 			<version>3.0.1</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.github.dozermapper/dozer-core -->
+		<dependency>
+			<groupId>com.github.dozermapper</groupId>
+			<artifactId>dozer-core</artifactId>
+			<version>6.0.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.modelmapper/modelmapper -->
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>1.1.3</version>
+		</dependency>
+
 	</dependencies>
 
 	<properties>
@@ -77,6 +90,7 @@
 		<jmh.version>1.20</jmh.version>
 
 		<!-- Java source/target to use for compilation. -->
+
 		<javac.target>1.9</javac.target>
 
 		<!-- Name of the benchmark Uber-JAR to generate. -->
