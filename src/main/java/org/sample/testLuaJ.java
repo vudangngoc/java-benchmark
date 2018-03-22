@@ -11,6 +11,7 @@ import javax.script.ScriptException;
 
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.LuaValue;
+import org.luaj.vm2.lib.jse.JseMathLib;
 import org.luaj.vm2.lib.jse.JsePlatform;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
@@ -22,14 +23,13 @@ import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 
 public class testLuaJ {
-
+	
 	@Benchmark
 	@BenchmarkMode(Mode.AverageTime)
 	@OutputTimeUnit(TimeUnit.MILLISECONDS)
 	public void testLuaJAPI(BenchMarkState state) {
 		for (int i = 0; i < state.size; i++) {
-			LuaValue chunk = state.globals.load(String.format(state.apiFormular,state.testData.get(i)));
-			chunk.call();
+			state.globals.get("math").get("sqrt").call(LuaValue.valueOf(state.testData.get(i)));
 		}
 	}
 
@@ -58,7 +58,7 @@ public class testLuaJ {
 	}
 //	Benchmark                   Mode  Cnt   Score    Error  Units
 //	testLuaJ.testJava           avgt  200   0.003 ▒  0.001  ms/op
-//	testLuaJ.testLuaJAPI        avgt  200  20.236 ▒  0.148  ms/op
+//	testLuaJ.testLuaJAPI        avgt  200   0.369 ▒  0.002  ms/op
 //	testLuaJ.testScriptManager  avgt  200  16.920 ▒  0.123  ms/op
 	@State(Scope.Benchmark)
 	public static class BenchMarkState {
@@ -73,6 +73,7 @@ public class testLuaJ {
 		public List<Integer> testData = new ArrayList<>();
 		@Setup(Level.Trial)
 		public void doSetup() {
+			globals.load(new JseMathLib());
 			for(int i = 0; i < size; i++)
 				testData.add(Integer.valueOf(i));
 		}
