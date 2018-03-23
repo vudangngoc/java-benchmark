@@ -10,7 +10,10 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
 import org.luaj.vm2.Globals;
+import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
+import org.luaj.vm2.lib.PackageLib;
+import org.luaj.vm2.lib.jse.JseBaseLib;
 import org.luaj.vm2.lib.jse.JseMathLib;
 import org.luaj.vm2.lib.jse.JsePlatform;
 import org.openjdk.jmh.annotations.Benchmark;
@@ -23,7 +26,7 @@ import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 
 public class testLuaJ {
-	
+
 	@Benchmark
 	@BenchmarkMode(Mode.AverageTime)
 	@OutputTimeUnit(TimeUnit.MILLISECONDS)
@@ -56,10 +59,10 @@ public class testLuaJ {
 			Math.sqrt(state.testData.get(i));
 		}
 	}
-//	Benchmark                   Mode  Cnt   Score    Error  Units
-//	testLuaJ.testJava           avgt  200   0.003 ▒  0.001  ms/op
-//	testLuaJ.testLuaJAPI        avgt  200   0.369 ▒  0.002  ms/op
-//	testLuaJ.testScriptManager  avgt  200  16.920 ▒  0.123  ms/op
+	//	Benchmark                   Mode  Cnt   Score    Error  Units
+	//	testLuaJ.testJava           avgt  200   0.003 ▒  0.001  ms/op
+	//	testLuaJ.testLuaJAPI        avgt  200   0.369 ▒  0.002  ms/op
+	//	testLuaJ.testScriptManager  avgt  200  16.920 ▒  0.123  ms/op
 	@State(Scope.Benchmark)
 	public static class BenchMarkState {
 		//JSE-223 pluggable scripting language interface
@@ -68,11 +71,13 @@ public class testLuaJ {
 		String seFormular = "y = math.sqrt(x)";
 
 		String apiFormular = "return math.sqrt(%d)";
-		Globals globals = JsePlatform.standardGlobals();
+		Globals globals = new Globals();
 		public int size = 5000;
 		public List<Integer> testData = new ArrayList<>();
 		@Setup(Level.Trial)
 		public void doSetup() {
+			globals.load(new JseBaseLib());
+			globals.load(new PackageLib());
 			globals.load(new JseMathLib());
 			for(int i = 0; i < size; i++)
 				testData.add(Integer.valueOf(i));
