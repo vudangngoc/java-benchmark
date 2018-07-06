@@ -28,12 +28,13 @@ public class TestLoopPerformance {
 	@Benchmark
 	@BenchmarkMode(Mode.AverageTime)
 	@OutputTimeUnit(TimeUnit.MILLISECONDS)
-	public void forCStyle(BenchMarkState state){
+	public List<Integer> forCStyle(BenchMarkState state){
 		int size = state.testData.size();
 		List<Integer> result = new ArrayList<>(size);
 		for(int j = 0; j < size; j ++){
 			result.add(state.testData.get(j));
 		}
+		return result;
 	}
 
 	@Benchmark
