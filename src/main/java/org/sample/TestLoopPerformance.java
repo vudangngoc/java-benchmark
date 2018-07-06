@@ -1,9 +1,7 @@
 package org.sample;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.StringTokenizer;
 import java.util.concurrent.TimeUnit;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
@@ -19,45 +17,52 @@ public class TestLoopPerformance {
 
 	@Benchmark
 	@BenchmarkMode(Mode.AverageTime)
-	@OutputTimeUnit(TimeUnit.NANOSECONDS)
-	public void forEach(BenchMarkState state){
-		for(Integer temp : state.testData){
-			// Do something
+	@OutputTimeUnit(TimeUnit.MILLISECONDS)
+	public List<Integer> forEach(BenchMarkState state){
+		List<Integer> result = new ArrayList<>(state.testData.size());
+		for(Integer item : state.testData){
+			result.add(item);
 		}
+		return result;
 	}
 	@Benchmark
 	@BenchmarkMode(Mode.AverageTime)
-	@OutputTimeUnit(TimeUnit.NANOSECONDS)
+	@OutputTimeUnit(TimeUnit.MILLISECONDS)
 	public void forCStyle(BenchMarkState state){
 		int size = state.testData.size();
+		List<Integer> result = new ArrayList<>(size);
 		for(int j = 0; j < size; j ++){
-			state.testData.get(j);
-			// Do something
+			result.add(state.testData.get(j));
 		}
 	}
 
 	@Benchmark
 	@BenchmarkMode(Mode.AverageTime)
-	@OutputTimeUnit(TimeUnit.NANOSECONDS)
-	public void streamSingleThread(BenchMarkState state){
+	@OutputTimeUnit(TimeUnit.MILLISECONDS)
+	public List<Integer> streamSingleThread(BenchMarkState state){
+		List<Integer> result = new ArrayList<>(state.testData.size());
 		state.testData.stream().forEach(item -> {
-			// Do something
+			result.add(item);
 		});
-
+		return result;
 	}
+	
 	@Benchmark
 	@BenchmarkMode(Mode.AverageTime)
-	@OutputTimeUnit(TimeUnit.NANOSECONDS)
-	public void streamMultiThread(BenchMarkState state){
+	@OutputTimeUnit(TimeUnit.MILLISECONDS)
+	public List<Integer> streamMultiThread(BenchMarkState state){
+		List<Integer> result = new ArrayList<>(state.testData.size());
 		state.testData.stream().parallel().forEach(item -> {
-			// Do something
+			result.add(item);
 		});
+		return result;
 	}
-//	Benchmark                               Mode  Cnt        Score       Error  Units
-//	TestLoopPerformance.forCStyle           avgt  200        3.182 ±     0.009  ns/op
-//	TestLoopPerformance.forEach             avgt  200  7693143.747 ± 57712.787  ns/op
-//	TestLoopPerformance.streamMultiThread   avgt  200  6974017.140 ± 66200.317  ns/op
-//	TestLoopPerformance.streamSingleThread  avgt  200  7790435.456 ± 75683.894  ns/op
+//	Benchmark                               Mode  Cnt   Score   Error  Units
+//	TestLoopPerformance.forCStyle           avgt  200  15.608 ± 0.079  ms/op
+//	TestLoopPerformance.forEach             avgt  200  30.566 ± 0.165  ms/op
+//	TestLoopPerformance.streamMultiThread   avgt  200  79.433 ± 0.747  ms/op
+//	TestLoopPerformance.streamSingleThread  avgt  200  37.779 ± 0.485  ms/op
+	
 	@State(Scope.Benchmark)
 	public static class BenchMarkState {
 		@Setup(Level.Trial)
