@@ -24,9 +24,14 @@ public class TestLoopBlocking {
   @BenchmarkMode(Mode.AverageTime)
   @OutputTimeUnit(TimeUnit.MILLISECONDS)
   public int[][] naive(BenchMarkState state){
+	  long count = 0;
   	for(int i = 0; i < 1024; i++)
-		for(int j = 0; j < 1024; j++) 
+		for(int j = 0; j < 1024; j++) {
 			state.data2[j][i] = state.data1[i][j];
+			count++;
+		}
+  	if(count != 1024*1024)
+		throw new IllegalAccessError(count + "");
   	return state.data2;
   }
   @Benchmark
@@ -34,14 +39,19 @@ public class TestLoopBlocking {
   @OutputTimeUnit(TimeUnit.MILLISECONDS)
   public int[][] blocking(BenchMarkState state){
 	  	int blockSize = 64;
+	  	long count = 0;
 		for(int ii = 0; ii < 1024; ii+=blockSize)
 			for(int jj = 0; jj < 1024; jj+=blockSize) {
-				int i_upper = (ii + blockSize -1) < 1024 ? (ii + blockSize -1): 1024;
-				int j_upper = (jj + blockSize -1) < 1024 ? (jj + blockSize -1): 1024;
+				int i_upper = (ii + blockSize -1) < 1024 ? (ii + blockSize ): 1024;
+				int j_upper = (jj + blockSize -1) < 1024 ? (jj + blockSize ): 1024;
 				for(int i = ii; i < i_upper; i++)
-					for(int j = jj; j < j_upper; j++)
+					for(int j = jj; j < j_upper; j++) {
 						state.data2[j][i] = state.data1[i][j];
+						count++;
+					}
 			}
+		if(count != 1024*1024)
+			throw new IllegalAccessError(count + "");
     return state.data2;
   }
 //  Benchmark                  Mode  Cnt  Score   Error  Units
