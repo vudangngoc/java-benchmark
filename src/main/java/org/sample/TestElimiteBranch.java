@@ -17,6 +17,7 @@ import org.openjdk.jmh.annotations.Threads;
 import org.openjdk.jmh.infra.Blackhole;
 
 public class TestElimiteBranch {
+  // inspired by https://medium.com/dotnetsafer/5-extreme-performance-tips-in-c-sharp-86e102720f0b
   @Benchmark
   @BenchmarkMode(Mode.AverageTime)
   @OutputTimeUnit(TimeUnit.MILLISECONDS)
