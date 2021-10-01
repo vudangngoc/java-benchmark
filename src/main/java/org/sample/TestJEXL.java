@@ -20,15 +20,14 @@ import org.openjdk.jmh.infra.Blackhole;
 
 public class TestJEXL {
 	
-	  @Benchmark
-	  @BenchmarkMode(Mode.AverageTime)
-	  @OutputTimeUnit(TimeUnit.MILLISECONDS)
-	  public void normalCode(BenchMarkState state,Blackhole blackhole){
-		  for(int i = 0; i < 100000; i++) {
-			    blackhole.consume((state.random.nextInt(1000) + state.random.nextInt(1000))*state.random.nextInt(1000));
-		  }
-		  
+  @Benchmark
+  @BenchmarkMode(Mode.AverageTime)
+  @OutputTimeUnit(TimeUnit.MILLISECONDS)
+  public void normalCode(BenchMarkState state,Blackhole blackhole){
+	  for(int i = 0; i < 100000; i++) {
+		    blackhole.consume((state.random.nextInt(1000) + state.random.nextInt(1000))*state.random.nextInt(1000));
 	  }
+  }
   @Benchmark
   @BenchmarkMode(Mode.AverageTime)
   @OutputTimeUnit(TimeUnit.MILLISECONDS)
@@ -42,6 +41,9 @@ public class TestJEXL {
 	  }
 	  
   }
+  //Benchmark            Mode  Cnt   Score   Error  Units
+  //TestJEXL.jexl        avgt  200  29.746 ± 0.545  ms/op
+  //TestJEXL.normalCode  avgt  200   2.951 ± 0.024  ms/op
   @State(Scope.Benchmark)
   public static class BenchMarkState {
 	  private Random random = new Random();
