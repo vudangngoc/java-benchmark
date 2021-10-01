@@ -68,7 +68,11 @@
 			<artifactId>trove4j</artifactId>
 			<version>3.0.3</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-jexl3</artifactId>
+			<version>3.2.1</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.luaj/luaj-jse -->
 		<dependency>
 			<groupId>org.luaj</groupId>
