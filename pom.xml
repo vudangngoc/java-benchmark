@@ -103,6 +103,12 @@
     <artifactId>disruptor</artifactId>
     <version>3.4.2</version>
 </dependency>
+		<!-- https://mvnrepository.com/artifact/net.openhft/chronicle-map -->
+		<dependency>
+			<groupId>net.openhft</groupId>
+			<artifactId>chronicle-map</artifactId>
+			<version>3.23.5</version>
+		</dependency>
 
 
 	</dependencies>
