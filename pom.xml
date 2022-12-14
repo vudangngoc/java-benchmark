@@ -109,6 +109,12 @@
 			<artifactId>chronicle-map</artifactId>
 			<version>3.23.5</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.ignite/ignite-core -->
+		<dependency>
+			<groupId>org.apache.ignite</groupId>
+			<artifactId>ignite-core</artifactId>
+			<version>2.14.0</version>
+		</dependency>
 
 
 	</dependencies>
