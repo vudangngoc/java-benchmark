@@ -4,6 +4,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+
+import com.hazelcast.collection.IList;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Level;
@@ -16,7 +18,6 @@ import org.openjdk.jmh.annotations.TearDown;
 import com.hazelcast.config.XmlConfigBuilder;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
-import com.hazelcast.core.IList;
 
 public class TestHazelCast {
 
@@ -27,7 +28,7 @@ public class TestHazelCast {
 		Iterator<String> temp = state.chmRead.iterator();
 		while(temp.hasNext())
 			temp.next();
-			
+
 	}
 	@Benchmark
 	@BenchmarkMode(Mode.AverageTime)
