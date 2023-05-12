@@ -12,7 +12,7 @@ public class Jobs {
 
     public static int job2(){
         try {
-            Thread.sleep(50);
+            Thread.sleep(40);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -21,7 +21,7 @@ public class Jobs {
 
     public static int job3(){
         try {
-            Thread.sleep(50);
+            Thread.sleep(30);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

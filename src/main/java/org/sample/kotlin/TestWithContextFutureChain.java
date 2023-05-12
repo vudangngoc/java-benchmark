@@ -27,10 +27,10 @@ public class TestWithContextFutureChain {
             blackhole.consume(state.completeFutureChain.test());
         }
     }
-    
+
 //    Benchmark                                   Mode  Cnt     Score   Error  Units
-//    TestWithContextFutureChain.testFutureChain  avgt   25  1870.514 ▒ 1.910  ms/op
-//    TestWithContextFutureChain.testWithContext  avgt   25  1869.790 ▒ 1.134  ms/op
+//    TestWithContextFutureChain.testFutureChain  avgt   25  1013.514 ▒ 3.984  ms/op
+//    TestWithContextFutureChain.testWithContext  avgt   25   784.205 ▒ 2.160  ms/op
 
     @State(Scope.Benchmark)
     public static class BenchMarkState {

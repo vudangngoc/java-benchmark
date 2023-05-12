@@ -5,11 +5,14 @@ import java.util.concurrent.ExecutionException;
 
 public class CompleteFutureChain {
     public int test(){
-        CompletableFuture<Integer> future = CompletableFuture.supplyAsync(() -> Jobs.job1())
-                .thenApplyAsync(i -> i + Jobs.job2())
-                .thenApplyAsync(i -> i + Jobs.job3());
+        CompletableFuture<Integer> future1 = new CompletableFuture<>();
+        CompletableFuture.runAsync(() -> future1.complete(Jobs.job1()));
+        CompletableFuture<Integer> future2 = new CompletableFuture<>();
+        CompletableFuture.runAsync(() -> future2.complete(Jobs.job2()));
+        CompletableFuture<Integer> future3 = new CompletableFuture<>();
+        CompletableFuture.runAsync(() -> future3.complete(Jobs.job3()));
         try {
-            return future.get();
+            return future3.get() + future2.get() + future1.get();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } catch (ExecutionException e) {
