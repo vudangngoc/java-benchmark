@@ -140,7 +140,7 @@
 
 		<!-- Java source/target to use for compilation. -->
 
-		<java.version>11</java.version>
+		<java.version>20</java.version>
 
 		<!-- Name of the benchmark Uber-JAR to generate. -->
 		<uberjar.name>benchmarks</uberjar.name>
@@ -187,6 +187,9 @@
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
+					<compilerArgs>
+						--enable-preview
+					</compilerArgs>
 				</configuration>
 				<executions>
 					<execution>
